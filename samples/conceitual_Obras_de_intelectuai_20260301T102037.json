@@ -1,0 +1,22 @@
+{
+    "metadata": {
+        "timestamp": "2026-03-01T10:20:37.752069",
+        "student": "Ana",
+        "topic": "Obras de intelectuais brasileiros sob uma ótica nacionalista e anticapitalista",
+        "content_type": "conceitual",
+        "prompt_version": "v1.0"
+    },
+    "generated_data": {
+        "raciocinio_didatico": "O serviço de IA está em modo de segurança (cota atingida). Esta é uma resposta de simulação para validar a persistência de dados.",
+        "explicacao_conceitual": "Conteúdo gerado em modo simulado devido ao limite da API gratuita do Google.",
+        "exemplos_praticos": [
+            "Exemplo simulado 1",
+            "Exemplo simulado 2"
+        ],
+        "perguntas_reflexao": [
+            "Pergunta 1?",
+            "Pergunta 2?"
+        ],
+        "resumo_visual_ou_ascii": " [ MOCK DIAGRAM ] "
+    }
+}
