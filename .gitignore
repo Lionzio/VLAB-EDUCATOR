@@ -1,0 +1,18 @@
+# Ambientes Virtuais (Nunca suba as dependências)
+venv/
+.venv/
+env/
+__pycache__/
+
+# Variáveis de Ambiente e Segredos (A Regra de Ouro)
+.env
+.env.*
+!.env.example
+
+# Dados locais e Banco de Dados (Para o nosso Repository Pattern)
+data/
+
+# Cache de ferramentas de Teste e Qualidade
+.pytest_cache/
+.ruff_cache/
+.coverage
