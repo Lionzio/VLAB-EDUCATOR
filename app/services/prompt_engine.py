@@ -4,7 +4,6 @@ Isola a criação de prompts da comunicação externa, facilitando testes unitá
 """
 
 from app.models.student import StudentProfile
-import json
 
 class PromptEngine:
     """
@@ -49,7 +48,6 @@ class PromptEngine:
     def generate_conceptual_prompt(self, student: StudentProfile, topic: str) -> str:
         """
         Gera o prompt para 'Explicação conceitual' usando Chain-of-Thought.
-        Exemplo de uso: topic = "Obras de Darcy Ribeiro e o nacionalismo brasileiro".
         """
         context = self._build_context(student, topic)
         
@@ -66,46 +64,34 @@ class PromptEngine:
         return f"{self.base_persona}\n\n{context}\n\n{instruction}{formatting}"
 
     def generate_practical_examples_prompt(self, student: StudentProfile, topic: str) -> str:
-        """
-        Gera o prompt para 'Exemplos práticos'.
-        """
+        """Gera o prompt para 'Exemplos práticos'."""
         context = self._build_context(student, topic)
-        
         instruction = (
             "Sua tarefa é criar 3 exemplos práticos e cotidianos que ilustrem o tópico.\n"
             "Os exemplos devem ser estritamente contextualizados para a idade do aluno "
             "e alinhados ao seu nível de conhecimento.\n"
         )
-        
         formatting = self._get_json_instruction('["raciocinio_didatico", "exemplos_praticos"]')
         return f"{self.base_persona}\n\n{context}\n\n{instruction}{formatting}"
 
     def generate_reflection_prompt(self, student: StudentProfile, topic: str) -> str:
-        """
-        Gera o prompt para 'Perguntas de reflexão'.
-        """
+        """Gera o prompt para 'Perguntas de reflexão'."""
         context = self._build_context(student, topic)
-        
         instruction = (
             "Sua tarefa é criar 2 perguntas de reflexão profunda sobre o tópico.\n"
             "O objetivo é estimular o pensamento crítico do aluno, fazendo-o questionar "
             "o status quo ou analisar o assunto sob uma ótica diferente.\n"
         )
-        
         formatting = self._get_json_instruction('["raciocinio_didatico", "perguntas_reflexao"]')
         return f"{self.base_persona}\n\n{context}\n\n{instruction}{formatting}"
 
     def generate_visual_summary_prompt(self, student: StudentProfile, topic: str) -> str:
-        """
-        Gera o prompt para 'Resumo visual'.
-        """
+        """Gera o prompt para 'Resumo visual'."""
         context = self._build_context(student, topic)
-        
         instruction = (
             "Sua tarefa é criar um resumo visual do tópico.\n"
             "Se o aluno for do estilo 'visual', crie um diagrama usando arte ASCII.\n"
             "Para outros estilos, crie uma descrição textual vívida de um mapa mental.\n"
         )
-        
         formatting = self._get_json_instruction('["raciocinio_didatico", "resumo_visual_ou_ascii"]')
         return f"{self.base_persona}\n\n{context}\n\n{instruction}{formatting}"
