@@ -1,30 +1,53 @@
 /**
- * Componente Raiz da Aplicação (Entrypoint Visual).
- * Seguindo a metodologia Atomic Design, este arquivo não deve conter lógica de negócio
- * complexa ou estilos hardcoded. Ele servirá como o orquestrador que renderiza 
- * as nossas "Pages" (Páginas) dinâmicas.
+ * Componente Raiz da Aplicação.
+ * Orquestra o roteamento e as páginas (Nesta etapa, testaremos as chamadas HTTP).
  */
+import React, { useState, useEffect } from 'react';
+import { api } from './services/api';
+import StudentList from './components/organisms/StudentList';
 
 function App() {
+  const [studentsData, setStudentsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Chamada à API Flask logo que o React monta a tela
+    api.get('/students')
+      .then((response) => {
+        setStudentsData(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError('Falha ao conectar com o servidor Flask.');
+        setLoading(false);
+      });
+  }, []);
+
+  const handleSelectStudent = (student) => {
+    alert(`Preparando ambiente para: ${student.name} (Funcionalidade da próxima Sprint)`);
+  };
+
   return (
-    <main>
-      {/* Futuramente, substituiremos este conteúdo estático pelo nosso sistema de roteamento.
-        Exemplo do que virá nas próximas Sprints:
-        <Routes>
-           <Route path="/" element={<HomePage />} />
-           <Route path="/generate" element={<GeneratorPage />} />
-        </Routes>
-      */}
-      
-      <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-        <h1>🎓 V-Lab Educator</h1>
-        <p>Ambiente React inicializado com sucesso.</p>
-        <p>
-          <em>O terreno está limpo e pronto para a criação dos Átomos, Moléculas e Organismos.</em>
-        </p>
-      </div>
+    <main style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem', fontFamily: 'sans-serif' }}>
+      <header style={{ borderBottom: '2px solid #eee', marginBottom: '2rem' }}>
+        <h1>🎓 V-Lab Educator Hub</h1>
+      </header>
+
+      <section>
+        {loading && <p>Carregando dados do banco PostgreSQL...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        
+        {!loading && !error && (
+          <StudentList 
+            students={studentsData} 
+            onStudentSelect={handleSelectStudent} 
+          />
+        )}
+      </section>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
