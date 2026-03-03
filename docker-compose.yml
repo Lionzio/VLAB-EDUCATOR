@@ -1,0 +1,18 @@
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: vlab_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: vlab_admin
+      POSTGRES_PASSWORD: vlab_password
+      POSTGRES_DB: vlab_educator_db
+    ports:
+      # Mapeamento alterado: Porta 5433 do seu Windows aponta para a 5432 do Container
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
